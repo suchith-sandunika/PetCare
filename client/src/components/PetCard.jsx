@@ -3,11 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 import { apiUrl, deletePetDetails, downloadPDF, getPetById, updatePetDetails } from "../services/api.js";
-import petImage from "../assets/logo.jpg";
+import petImage from "../../public/logo.jpg";
 import '../styles/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export const Profile = () => {
+export const PetCard = () => {
     // access the url related params data (id) ...
     const { id } = useParams();
 
@@ -298,4 +298,4 @@ export const Profile = () => {
     )
 }
 
-export default memo(Profile);
+export default memo(PetCard);

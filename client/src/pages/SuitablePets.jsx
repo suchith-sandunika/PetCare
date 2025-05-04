@@ -2,11 +2,11 @@ import React, { memo, useCallback, useEffect, useState } from 'react'
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { adoptPet, apiUrl } from "../services/api.js";
-import logo2 from "../assets/logo4.jpg";
-import logo from "../assets/logo4.jpg";
-import dogImage from "../assets/image.png";
-import catImage from "../assets/catImage2.png";
-import otherAnimal from "../assets/other.jpg";
+import logo2 from "../../public/logo4.jpg";
+import logo from "../../public/logo4.jpg";
+import dogImage from "../../public/image.png";
+import catImage from "../../public/catImage2.png";
+import otherAnimal from "../../public/other.jpg";
 
 const SuitablePets = ({ data }) => {
 

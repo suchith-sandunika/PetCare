@@ -2,7 +2,7 @@ import React, { memo, useCallback, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
-import petImage from "../assets/other.jpg";
+import petImage from "../../public/other.jpg";
 import { filterPetsByPersonality } from "../services/api.js";
 import SuitablePets from "./SuitablePets.jsx";
 

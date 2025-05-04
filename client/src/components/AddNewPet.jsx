@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Swal from 'sweetalert2';
 import { createPet } from "../services/api.js";
-import petImage from '../assets/logo.jpg';
+import petImage from '../../public/logo.jpg';
 import '../styles/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 

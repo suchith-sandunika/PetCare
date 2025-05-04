@@ -1,7 +1,7 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home.jsx";
-import Profile from "./pages/Profile.jsx";
-import AddNewPet from "./pages/AddNewPet.jsx";
+import Profile from "./components/PetCard.jsx";
+import AddNewPet from "./components/AddNewPet.jsx";
 import IdentifySuitablePet from "./pages/IdentifySuitablePet.jsx";
 import './App.css';
 
