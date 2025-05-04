@@ -3,7 +3,6 @@ import Home from "./pages/Home.jsx";
 import Profile from "./components/PetCard.jsx";
 import AddNewPet from "./components/AddNewPet.jsx";
 import IdentifySuitablePet from "./pages/IdentifySuitablePet.jsx";
-import './App.css';
 
 function App() {
   return (
