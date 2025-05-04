@@ -1,0 +1,45 @@
+/*Homepage CSS ...*/
+
+.pet-logo-size {
+    height: 80px;
+    width: 80px;
+}
+
+.w-15 {
+    width: 15% !important;
+}
+
+.bg-green {
+    color: green;
+}
+
+.bg-orange {
+    color: orange;
+}
+
+.bg-red {
+    color: red;
+}
+
+/*Add Pet Page CSS ...*/
+
+.pet-image-size {
+    height: 150px;
+    width: 150px;
+}
+
+.w-40 {
+    width: 40% !important;
+}
+
+/*Profile Page CSS ...*/
+
+.btn-orange {
+    background-color: orangered;
+}
+
+/*Identify Suitable Pet Page*/
+.pet-img-size {
+    height: 250px;
+    width: 250px;
+}
