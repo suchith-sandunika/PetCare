@@ -1,5 +1,7 @@
-import React, {useState} from 'react'
+import React, { memo, useCallback, useState } from 'react';
+import {useNavigate} from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify";
+import Swal from "sweetalert2";
 import petImage from "../assets/other.jpg";
 import {filterPetsByPersonality} from "../services/api.js";
 import SuitablePets from "./SuitablePets.jsx";
@@ -12,7 +14,9 @@ const IdentifySuitablePet = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [suitablePets, setSuitablePets] = useState([]);
 
-    const submitResponse = async () => {
+    const navigate = useNavigate();
+
+    const submitResponse = useCallback(async () => {
         // check whether the fields are empty or not ...
         if (!species || !personality) {
             setIsError(true);
@@ -32,7 +36,25 @@ const IdentifySuitablePet = () => {
             console.log(error);
             return;
         }
-    }
+    }, [isLoading, suitablePets]);
+
+    const cancelOperation = useCallback(() => {
+        // set a confirmation before leaving the page ...
+        Swal.fire({
+            title: 'Confirmation About Going Back',
+            text: 'Are you sure you want exit from adding a new pet?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Go Back To Homepage'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                // navigate to home page ...
+                navigate('/');
+            }
+        });
+    }, [navigate]);
 
     return (
         <div className='container-fluid mt-2 min-vh-100 d-flex justify-content-center align-items-center m-auto'>
@@ -79,6 +101,9 @@ const IdentifySuitablePet = () => {
                                         onClick={submitResponse}>
                                     Submit Your Response
                                 </button>
+                                <button type='button' className='btn btn-danger text-white text-center mt-2'
+                                        onClick={cancelOperation}>Cancel
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -90,4 +115,4 @@ const IdentifySuitablePet = () => {
         </div>
     )
 }
-export default IdentifySuitablePet
+export default memo(IdentifySuitablePet);

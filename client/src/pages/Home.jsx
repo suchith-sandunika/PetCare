@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
@@ -7,6 +7,7 @@ import logo from '../assets/logo2.jpg';
 import logo2 from '../assets/logo3.jpg';
 import petImage from '../assets/logo4.jpg';
 import dogImage from '../assets/image.png';
+import dogImage2 from '../assets/dogImage.png';
 import catImage from '../assets/catImage2.png';
 import otherAnimal from '../assets/other.jpg';
 import '../styles/styles.css';
@@ -25,36 +26,36 @@ const Home = () => {
     }, []);
 
     // Function to fetch all pets data ...
-    const fetchPetsData = async () => {
-        try {
-            const response = await getPets();
-            // console.log(response);
-            if(response.status === 200) {
-                setPets(response.data);
-            } else {
-                toast.error(response.data.message);
+    const fetchPetsData = useCallback (async () => {
+            try {
+                const response = await getPets();
+                // console.log(response);
+                if(response.status === 200) {
+                    setPets(response.data);
+                } else {
+                    toast.error(response.data.message);
+                    return;
+                }
+            } catch (error) {
+                console.log(error);
                 return;
             }
-        } catch (error) {
-            console.log(error);
-            return;
-        }
-    }
+        }, [pets]);
 
     // Function to handle search input ...
-    const handleSearchInput = async (e) => {
+    const handleSearchInput = useCallback(async (e) => {
         const input = e.target.value;
-        console.log(input);
+        // console.log(input);
         // according to input value, change the data loading ...
         if(input) {
             await fetchDataAccordingToMood(input);
         } else {
             await fetchPetsData();
         }
-    }
+    }, [fetchPetsData]);
 
     // Function to fetch pet data according to mooed ...
-    const fetchDataAccordingToMood = async (mood) => {
+    const fetchDataAccordingToMood = useCallback(async (mood) => {
         console.log(mood);
         try {
             // call the filterPetByMood function to filter the pet data through the mood ...
@@ -70,11 +71,11 @@ const Home = () => {
             console.log(error);
             return;
         }
-    }
+    }, [pets])
 
 
     // Function to adopt a pet process ...
-    const adoptThisPet = async (id) => {
+    const adoptThisPet = useCallback(async (id) => {
         try {
             // call the adoptPet function to set adopt status ...
             const response = await adoptPet(id);
@@ -96,22 +97,22 @@ const Home = () => {
             console.log(error);
             return;
         }
-    }
+    }, []);
 
-    const moveToAddPet = () => {
-        // navigate to addPet page ...
-        navigate('/add');
-    }
+    const moveToAddPet = useCallback(() => {
+            // navigate to addPet page ...
+            navigate('/add');
+        }, [navigate]);
 
-    const viewPet = (id) => {
+    const viewPet = useCallback((id) => {
         // navigate to viewPetDetails page ...
         navigate(`/profile/${id}`);
-    }
+    }, [navigate]);
 
-    const moveToIdentifyPet = () => {
+    const moveToIdentifyPet = useCallback(() => {
         // navigate to IdentifySuitablePet page ...
         navigate('/view-suitable-pet');
-    }
+    }, [navigate]);
 
     return (
         <div className='container-fluid h-100 w-100 mt-2 mb-2'>
@@ -128,30 +129,33 @@ const Home = () => {
                 </div>
                 <div className='card-body'>
                     <h5 className='align-items-center text-center fw-bold mb-3'>
+                        <img src={dogImage2} alt={dogImage2} className='pet-logo-size ms-1'/>
                         Explore to own your pet
                         <img src={petImage} alt={petImage} className='pet-logo-size ms-1'/>
                     </h5>
-                    <div className='container'>
-                        <div className="row mb-3">
-                            <div className="col d-flex justify-content-end">
-                                <div className='d-flex justify-content-end align-items-end w-25'>
-                                    <input type='text' className='form-control' placeholder='Enter the mood to search' onChange={handleSearchInput}/>
-                                    <Search className='ms-2 mb-2'/>
-                                </div>
+                    <div className="row mb-3">
+                    <div className="col-12 d-flex justify-content-end">
+                            <div className="d-flex align-items-end search-bar-size">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Enter the mood to search"
+                                    onChange={handleSearchInput}
+                                />
+                                <Search className="ms-2 mb-2"/>
                             </div>
                         </div>
                     </div>
                     {pets.length > 0 ? (
                         <div className='row justify-content-center gx-3 gy-4'>
                             {pets.map((pet, index) => (
-                                <div key={index} className='w-15'>
-                                    <div className='card flex-fill'>
+                                <div key={index} className='col-md-2'>
+                                    <div className='card flex-fill hover-effect cursor-pointer'>
                                         <div className='card-body d-flex flex-column'>
                                             <h5 className='card-title text-center fw-bold'>{pet.name}</h5>
                                             {pet.image ? (
                                                 <img src={`http://localhost:5000/uploads/${pet.image}`} alt={pet.name}
-                                                     className='card-img-top mb-2 img-fluid'
-                                                     style={{height: '150px', objectFit: 'cover'}}/>
+                                                     className='card-img-top mb-2 img-fluid img-class-style'/>
                                             ) : (
                                                 (
                                                     pet.species === 'Dog' ? (
@@ -206,7 +210,8 @@ const Home = () => {
                                 onClick={moveToAddPet}>
                             Add a new Pet 🐶
                         </button>
-                        <button className='btn btn-success d-flex justify-content-center align-items-center mt-3' onClick={moveToIdentifyPet}>
+                        <button className='btn btn-success d-flex justify-content-center align-items-center mt-3'
+                                onClick={moveToIdentifyPet}>
                             Identify the Pet Which Suits You 🐱
                         </button>
                     </div>
@@ -216,4 +221,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default memo(Home);

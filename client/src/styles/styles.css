@@ -21,6 +21,30 @@
     color: red;
 }
 
+.search-bar-size {
+    max-width: 250px;
+    width: 100%;
+}
+
+.hover-effect:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.hover-effect {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.img-class-style {
+    height: 150px;
+    object-fit: cover;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
 /*Add Pet Page CSS ...*/
 
 .pet-image-size {

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 import {useNavigate, useParams} from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify";
 import Swal from "sweetalert2";
@@ -53,7 +53,7 @@ export const Profile = () => {
         }
     }, [id]);
 
-    const handleImageChange = (e) => {
+    const handleImageChange = useCallback((e) => {
         // access the selected file ...
         const file = e.target.files[0];
         // access the file object url ...
@@ -66,9 +66,9 @@ export const Profile = () => {
             // set the selected file object url as newly updated image url ...
             setUpdatedImagePath(imageUrl);
         }
-    };
+    }, [updatedImage, updatedImagePath]);
 
-    const updatePet = async (id) => {
+    const updatePet = useCallback(async (id) => {
         // check whether the fields are empty or not ...
         if (!name || !species || !age || !personality) {
             setIsError(true);
@@ -123,9 +123,9 @@ export const Profile = () => {
                 }
             }
         });
-    }
+    }, []);
 
-    const deletePet = async (id) => {
+    const deletePet = useCallback(async (id) => {
         // set a confirmation before delete ...
         Swal.fire({
             title: 'Confirmation About Deleting Pet Details',
@@ -166,11 +166,11 @@ export const Profile = () => {
                 }
             }
         });
-    }
+    }, [navigate]);
 
-    const downloadPetPDF = async (id) => {
+    const downloadPetPDF = useCallback(async (id) => {
         try {
-            const response = await downloadPDF(id); // ✅ Use the renamed function
+            const response = await downloadPDF(id);
 
             if (response.status !== 200) {
                 toast.error('Failed to download PDF');
@@ -190,9 +190,9 @@ export const Profile = () => {
             console.error('Error downloading PDF:', error);
             toast.error('Something went wrong!');
         }
-    };
+    }, []);
 
-    const cancelOperation = () => {
+    const cancelOperation = useCallback(() => {
         // set a confirmation before leaving the page ...
         Swal.fire({
             title: 'Confirmation About Going Back',
@@ -208,7 +208,7 @@ export const Profile = () => {
                 navigate('/');
             }
         });
-    }
+    }, [navigate]);
 
     return (
         <div className='container-fluid mt-2 min-vh-100 d-flex justify-content-center align-items-center m-auto'>
@@ -298,4 +298,4 @@ export const Profile = () => {
     )
 }
 
-export default Profile;
+export default memo(Profile);

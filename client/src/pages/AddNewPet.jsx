@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { memo, useCallback, useState } from 'react'
 import {useNavigate} from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify";
 import Swal from 'sweetalert2';
@@ -20,7 +20,7 @@ const AddNewPet = () => {
     // set page navigation ...
     const navigate = useNavigate();
 
-    const handleImageChange = (e) => {
+    const handleImageChange = useCallback((e) => {
         // access the selected file ...
         const file = e.target.files[0];
         // access the file object url ...
@@ -33,9 +33,9 @@ const AddNewPet = () => {
             // set the selected file object url as newly updated image url ...
             setImagePath(imageUrl);
         }
-    };
+    }, [image, imagePath]);
 
-    const addPet = async () => {
+    const addPet = useCallback(async () => {
         // check whether the fields are empty or not ...
         if(!name || !species || !age || !personality) {
             setIsError(true);
@@ -68,9 +68,9 @@ const AddNewPet = () => {
             console.log(error);
             return;
         }
-    }
+    }, []);
 
-    const cancelOperation = () => {
+    const cancelOperation = useCallback(() => {
         // set a confirmation before leaving the page ...
         Swal.fire({
             title: 'Confirmation About Going Back',
@@ -86,7 +86,7 @@ const AddNewPet = () => {
                 navigate('/');
             }
         });
-    }
+    }, [navigate]);
 
     return (
         <div className='container-fluid mt-2 min-vh-100 d-flex justify-content-center align-items-center m-auto'>
@@ -160,4 +160,4 @@ const AddNewPet = () => {
     )
 }
 
-export default AddNewPet
+export default memo(AddNewPet);

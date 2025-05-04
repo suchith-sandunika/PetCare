@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate} from "react-router-dom";
 import { adoptPet } from "../services/api.js";
@@ -20,7 +20,7 @@ const SuitablePets = ({ data }) => {
     }, [data]);
 
     // Function to adopt a pet process ...
-    const adoptThisPet = async (id) => {
+    const adoptThisPet = useCallback(async (id) => {
         try {
             // call the adoptPet function to set adopt status ...
             const response = await adoptPet(id);
@@ -37,16 +37,16 @@ const SuitablePets = ({ data }) => {
             console.log(error);
             return;
         }
-    }
+    }, [pets]);
 
-    const viewPet = (id) => {
+    const viewPet = useCallback((id) => {
         // navigate to viewPetDetails page ...
         navigate(`/profile/${id}`);
-    }
+    }, [navigate])
 
-    const navigateToHomePage = () => {
+    const navigateToHomePage = useCallback(() => {
         navigate('/');
-    }
+    }, [navigate]);
 
     return (
         <div className='container-fluid h-100 w-100 mt-2 mb-2'>
@@ -127,4 +127,4 @@ const SuitablePets = ({ data }) => {
         </div>
     )
 }
-export default SuitablePets
+export default memo(SuitablePets);
