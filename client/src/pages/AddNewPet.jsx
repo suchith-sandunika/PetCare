@@ -1,8 +1,8 @@
 import React, { memo, useCallback, useState } from 'react'
-import {useNavigate} from "react-router-dom";
-import {toast, ToastContainer} from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import Swal from 'sweetalert2';
-import {createPet} from "../services/api.js";
+import { createPet } from "../services/api.js";
 import petImage from '../assets/logo.jpg';
 import '../styles/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -35,7 +35,7 @@ const AddNewPet = () => {
         }
     }, [image, imagePath]);
 
-    const addPet = useCallback(async () => {
+    const addPet = async () => {
         // check whether the fields are empty or not ...
         if(!name || !species || !age || !personality) {
             setIsError(true);
@@ -68,7 +68,7 @@ const AddNewPet = () => {
             console.log(error);
             return;
         }
-    }, []);
+    };
 
     const cancelOperation = useCallback(() => {
         // set a confirmation before leaving the page ...
@@ -145,11 +145,11 @@ const AddNewPet = () => {
                                 <span className='bg-red'>Personality is Required</span>
                             ) }
                         </div>
-                        <div className='d-flex justify-content-center align-content-center gap-2'>
-                            <button type='button' className='btn btn-info text-white text-center mt-2'
+                        <div className='mt-auto custom-button-group'>
+                            <button type='button' className='btn btn-info text-white'
                                     onClick={addPet}>Add the Pet
                             </button>
-                            <button type='button' className='btn btn-danger text-white text-center mt-2'
+                            <button type='button' className='btn btn-danger text-white'
                                     onClick={cancelOperation}>Cancel
                             </button>
                         </div>

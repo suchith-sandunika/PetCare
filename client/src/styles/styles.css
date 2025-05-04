@@ -45,6 +45,46 @@
     cursor: pointer;
 }
 
+.custom-button-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+@media (max-width: 897px) {
+    .custom-button-group {
+        flex-direction: column !important;
+        align-items: stretch;
+    }
+
+    .custom-button-group button {
+        width: 100% !important;
+    }
+}
+
+.mood-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.mood-label {
+    margin-right: 0.5rem;
+}
+
+@media (max-width: 897px) {
+    .mood-container {
+        flex-direction: column;  /* Stack Mood label above the pet mood */
+        align-items: flex-start; /* Align items to start */
+    }
+
+    .mood-label {
+        margin-bottom: 0.5rem; /* Add some space between the label and the mood */
+    }
+}
+
 /*Add Pet Page CSS ...*/
 
 .pet-image-size {

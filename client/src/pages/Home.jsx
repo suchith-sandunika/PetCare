@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
-import { adoptPet, filterPetByMood, getPets } from "../services/api.js";
+import { adoptPet, apiUrl, filterPetByMood, getPets } from "../services/api.js";
 import logo from '../assets/logo2.jpg';
 import logo2 from '../assets/logo3.jpg';
 import petImage from '../assets/logo4.jpg';
@@ -154,7 +154,7 @@ const Home = () => {
                                         <div className='card-body d-flex flex-column'>
                                             <h5 className='card-title text-center fw-bold'>{pet.name}</h5>
                                             {pet.image ? (
-                                                <img src={`http://localhost:5000/uploads/${pet.image}`} alt={pet.name}
+                                                <img src={`${apiUrl}/uploads/${pet.image}`} alt={pet.name}
                                                      className='card-img-top mb-2 img-fluid img-class-style'/>
                                             ) : (
                                                 (
@@ -178,22 +178,28 @@ const Home = () => {
                                             <p className='card-text text-center'>Species: {pet.species}</p>
                                             <p className='card-text text-center'>Age: {pet.age} Years</p>
                                             <p className='card-text text-center'>Personality: {pet.personality}</p>
-                                            <div className='d-flex justify-content-center align-items-center mb-2'>
-                                                <p className='card-text mb-0'>Mood: </p>
+                                            <div
+                                                className='d-flex justify-content-center align-items-center mb-2 mood-container'>
+                                                <p className='card-text mb-0 mood-label'>Mood: </p>
                                                 <p className={pet.mood === 'Happy' ? 'card-text bg-green ms-2' : pet.mood === 'Excited' ? 'card-text bg-orange ms-2' : 'card-text bg-red ms-2'}>
                                                     {pet.mood} {pet.mood === 'Happy' ? '😊' : pet.mood === 'Excited' ? '🙂' : '😢'}
                                                 </p>
                                             </div>
-                                            <div className='mt-auto d-flex justify-content-center gap-2'>
+                                            <div className='mt-auto custom-button-group'>
                                                 {pet.adopted || petAdopted ? (
                                                     <button type='button' className='btn btn-secondary text-white'
-                                                            disabled>Adopted</button>
+                                                            disabled>
+                                                        Adopted
+                                                    </button>
                                                 ) : (
                                                     <button type='button' className='btn btn-success text-white'
-                                                            onClick={() => adoptThisPet(pet._id)}>Adopt {pet.name}</button>
+                                                            onClick={() => adoptThisPet(pet._id)}>
+                                                        Adopt {pet.name}
+                                                    </button>
                                                 )}
                                                 <button type='button' className='btn btn-info text-white'
-                                                        onClick={() => viewPet(pet._id)}>View Profile
+                                                        onClick={() => viewPet(pet._id)}>
+                                                    View Profile
                                                 </button>
                                             </div>
                                         </div>
@@ -205,7 +211,7 @@ const Home = () => {
                         <p className='d-flex justify-content-center align-items-center'>Oops ! No Pets Found in the
                             System 🤔</p>
                     )}
-                    <div className='d-flex justify-content-center align-items-center gap-2'>
+                    <div className='d-flex flex-column flex-md-row justify-content-center align-items-center gap-2'>
                         <button className='btn btn-primary d-flex justify-content-center align-items-center mt-3'
                                 onClick={moveToAddPet}>
                             Add a new Pet 🐶

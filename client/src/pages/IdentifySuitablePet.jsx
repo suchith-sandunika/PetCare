@@ -1,9 +1,9 @@
 import React, { memo, useCallback, useState } from 'react';
-import {useNavigate} from "react-router-dom";
-import {toast, ToastContainer} from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 import petImage from "../assets/other.jpg";
-import {filterPetsByPersonality} from "../services/api.js";
+import { filterPetsByPersonality } from "../services/api.js";
 import SuitablePets from "./SuitablePets.jsx";
 
 const IdentifySuitablePet = () => {
@@ -96,12 +96,12 @@ const IdentifySuitablePet = () => {
                                     <span className='bg-red'>Personality is Required</span>
                                 )}
                             </div>
-                            <div className='d-flex justify-content-center align-content-center gap-2'>
-                                <button type='button' className='btn btn-primary text-white text-center mt-2'
+                            <div className='mt-auto custom-button-group'>
+                                <button type='button' className='btn btn-primary text-white'
                                         onClick={submitResponse}>
                                     Submit Your Response
                                 </button>
-                                <button type='button' className='btn btn-danger text-white text-center mt-2'
+                                <button type='button' className='btn btn-danger text-white'
                                         onClick={cancelOperation}>Cancel
                                 </button>
                             </div>

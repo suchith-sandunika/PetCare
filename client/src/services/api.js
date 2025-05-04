@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_BACKEND_SERVER_URL || 'http://localhost:5000';
+
 // Set the backend api with axios ...
 const Api = axios.create({
-    baseURL: import.meta.env.BACKEND_SERVER_URL || 'http://localhost:5000',
+    baseURL: apiUrl,
     headers: {
         "Content-Type": "application/json",
     }
@@ -47,4 +49,4 @@ const downloadPDF = (id) => Api.get(`/pets/generate-pdf/${id}`, {
     responseType: 'blob' // Important for binary data like PDFs
 });
 
-export { getPets, getPetById, createPet, updatePetDetails, deletePetDetails, adoptPet, filterPetByMood, filterPetsByPersonality, downloadPDF }
+export { apiUrl, getPets, getPetById, createPet, updatePetDetails, deletePetDetails, adoptPet, filterPetByMood, filterPetsByPersonality, downloadPDF }

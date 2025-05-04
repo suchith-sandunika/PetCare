@@ -1,8 +1,8 @@
 import React, { memo, useCallback, useEffect, useState } from 'react'
-import {useNavigate, useParams} from "react-router-dom";
-import {toast, ToastContainer} from "react-toastify";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
-import {deletePetDetails, downloadPDF, getPetById, updatePetDetails} from "../services/api.js";
+import { apiUrl, deletePetDetails, downloadPDF, getPetById, updatePetDetails } from "../services/api.js";
 import petImage from "../assets/logo.jpg";
 import '../styles/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -68,7 +68,7 @@ export const Profile = () => {
         }
     }, [updatedImage, updatedImagePath]);
 
-    const updatePet = useCallback(async (id) => {
+    const updatePet = async (id) => {
         // check whether the fields are empty or not ...
         if (!name || !species || !age || !personality) {
             setIsError(true);
@@ -123,7 +123,7 @@ export const Profile = () => {
                 }
             }
         });
-    }, []);
+    }
 
     const deletePet = useCallback(async (id) => {
         // set a confirmation before delete ...
@@ -226,7 +226,7 @@ export const Profile = () => {
                                 <img src={updatedImagePath} alt={image} className='pet-image-size'/>
                             ) : (
                                 image ? (
-                                    <img src={`http://localhost:5000/uploads/${image}`} alt={image} className='pet-image-size'/>
+                                    <img src={`${apiUrl}/uploads/${image}`} alt={image} className='pet-image-size'/>
                                 ) : (
                                     <img src={petImage} alt={petImage} className='pet-image-size'/>
                                 )
@@ -273,20 +273,20 @@ export const Profile = () => {
                                 <span className='bg-red'>Personality is Required</span>
                             )}
                         </div>
-                        <div className='d-flex justify-content-center align-content-center gap-2'>
-                            <button type='button' className='btn btn-warning text-white text-center mt-2' onClick={() => updatePet(petId)}>
+                        <div className='mt-auto custom-button-group'>
+                            <button type='button' className='btn btn-warning text-white' onClick={() => updatePet(petId)}>
                                 Update the Pet Details
                             </button>
-                            <button type='button' className='btn btn-danger text-white text-center mt-2' onClick={() => deletePet(petId)}>
+                            <button type='button' className='btn btn-danger text-white' onClick={() => deletePet(petId)}>
                                 Remove Pet
                             </button>
                             { petAdopted && petId && (
-                                <button type='button' className='btn btn-primary text-white text-center mt-2'
+                                <button type='button' className='btn btn-primary text-white'
                                         onClick={() => downloadPetPDF(petId)}>
                                     Download Adaptation Report
                                 </button>
                             )}
-                            <button type='button' className='btn btn-info text-white text-center mt-2'
+                            <button type='button' className='btn btn-info text-white'
                                     onClick={cancelOperation}>
                                 Cancel
                             </button>

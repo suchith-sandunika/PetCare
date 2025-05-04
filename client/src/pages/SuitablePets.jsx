@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect, useState } from 'react'
 import { toast, ToastContainer } from "react-toastify";
-import { useNavigate} from "react-router-dom";
-import { adoptPet } from "../services/api.js";
+import { useNavigate } from "react-router-dom";
+import { adoptPet, apiUrl } from "../services/api.js";
 import logo2 from "../assets/logo4.jpg";
 import logo from "../assets/logo4.jpg";
 import dogImage from "../assets/image.png";
@@ -70,7 +70,7 @@ const SuitablePets = ({ data }) => {
                                         <div className='card-body d-flex flex-column'>
                                             <h5 className='card-title text-center fw-bold'>{pet.name}</h5>
                                             {pet.image ? (
-                                                <img src={`http://localhost:5000/uploads/${pet.image}`} alt={pet.name}
+                                                <img src={`${apiUrl}/uploads/${pet.image}`} alt={pet.name}
                                                      className='card-img-top mb-2 img-fluid'
                                                      style={{height: '150px', objectFit: 'cover'}}/>
                                             ) : (
@@ -101,7 +101,7 @@ const SuitablePets = ({ data }) => {
                                                     {pet.mood} {pet.mood === 'Happy' ? '😊' : pet.mood === 'Excited' ? '🙂' : '😢'}
                                                 </p>
                                             </div>
-                                            <div className='mt-auto d-flex justify-content-center gap-2'>
+                                            <div className='mt-auto custom-button-group'>
                                                 <button type='button' className='btn btn-success text-white'
                                                         onClick={() => adoptThisPet(pet._id)}>Adopt {pet.name}</button>
                                                 <button type='button' className='btn btn-info text-white'
