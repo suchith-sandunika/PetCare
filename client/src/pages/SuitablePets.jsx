@@ -2,8 +2,8 @@ import React, { memo, useCallback, useEffect, useState } from 'react'
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { adoptPet, apiUrl } from "../services/api.js";
+import Swal from "sweetalert2";
 import logo2 from "../../public/logo4.jpg";
-import logo from "../../public/logo4.jpg";
 import dogImage from "../../public/image.png";
 import catImage from "../../public/catImage2.png";
 import otherAnimal from "../../public/other.jpg";
@@ -45,20 +45,34 @@ const SuitablePets = ({ data }) => {
     }, [navigate])
 
     const navigateToHomePage = useCallback(() => {
-        navigate('/');
+        // set a confirmation before leaving the page ...
+        Swal.fire({
+            title: 'Confirmation About Going Back',
+            text: 'Are you sure you want exit from adding a new pet?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Go Back To Homepage'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                // navigate to home page ...
+                navigate('/');
+            }
+        });
     }, [navigate]);
 
     return (
         <div className='container-fluid h-100 w-100 mt-2 mb-2'>
             <ToastContainer/>
-            <div className='card w-full h-full'>
-                <div className='card-header align-items-center fw-bold border-0 bg-white'>
+            <div className='card w-full h-full' style={{ background: 'cornflowerblue' }}>
+                <div className='card-header align-items-center fw-bold border-0 bg-white' style={{ background: '#3B5998' }}>
                     <div className='card-title'>
-                        <h3 className='fw-bold d-flex justify-content-center align-items-center'>
-                            <img src={logo2} alt={logo2} className='pet-logo-size ms-2'/>
-                            PetCare - The Online Pet Adaptation Center
-                            <img src={logo} alt={logo} className='pet-logo-size mt-1'/>
-                        </h3>
+                        <h2 className='fw-bold d-flex justify-content-center align-items-center'>
+                            <img src={logo2} alt={logo2} className='pet-logo-size mt-3 mb-3'/>
+                            <span className='mr-2 ms-2 text-white font-monospace'>PetCare - The Online Pet Adaptation Center</span>
+                            <img src={logo2} alt={logo2} className='pet-logo-size ms-2 mt-3 mb-3'/>
+                        </h2>
                     </div>
                 </div>
                 <div className='card-body'>
@@ -66,28 +80,28 @@ const SuitablePets = ({ data }) => {
                         <div className='row justify-content-center gx-3 gy-4'>
                             {pets.map((pet, index) => (
                                 <div key={index} className='w-15'>
-                                    <div className='card flex-fill'>
+                                    <div className='card flex-fill shadow-lg' style={{ background: '#2D4373' }}>
                                         <div className='card-body d-flex flex-column'>
                                             <h5 className='card-title text-center fw-bold'>{pet.name}</h5>
                                             {pet.image ? (
                                                 <img src={`${apiUrl}/uploads/${pet.image}`} alt={pet.name}
                                                      className='card-img-top mb-2 img-fluid'
-                                                     style={{height: '150px', objectFit: 'cover'}}/>
+                                                     style={{ objectFit: 'cover' }}/>
                                             ) : (
                                                 (
                                                     pet.species === 'Dog' ? (
                                                         <img src={dogImage} alt={pet.name}
                                                              className='card-img-top mb-2 img-fluid'
-                                                             style={{height: '150px', objectFit: 'cover'}}/>
+                                                             style={{ objectFit: 'cover'}}/>
                                                     ) : (
                                                         pet.species === 'Cat' ? (
                                                             <img src={catImage} alt={pet.name}
                                                                  className='card-img-top mb-2 img-fluid'
-                                                                 style={{height: '150px', objectFit: 'cover'}}/>
+                                                                 style={{ objectFit: 'cover'}}/>
                                                         ) : (
                                                             <img src={otherAnimal} alt={pet.name}
                                                                  className='card-img-top mb-2'
-                                                                 style={{height: '150px', objectFit: 'cover'}}/>
+                                                                 style={{ objectFit: 'cover'}}/>
                                                         )
                                                     )
                                                 )
@@ -102,9 +116,9 @@ const SuitablePets = ({ data }) => {
                                                 </p>
                                             </div>
                                             <div className='mt-auto custom-button-group'>
-                                                <button type='button' className='btn btn-success text-white'
+                                                <button type='button' className='btn btn-success text-white hover-effect'
                                                         onClick={() => adoptThisPet(pet._id)}>Adopt {pet.name}</button>
-                                                <button type='button' className='btn btn-info text-white'
+                                                <button type='button' className='btn btn-info text-white hover-effect'
                                                         onClick={() => viewPet(pet._id)}>View Profile
                                                 </button>
                                             </div>
@@ -114,11 +128,14 @@ const SuitablePets = ({ data }) => {
                             ))}
                         </div>
                     ) : (
-                        <p className='d-flex justify-content-center align-items-center'>Oops ! No Pets Found In The
-                            System, Which Suits With Your Opinion 🤔</p>
+                        <div className='card text-white d-flex justify-content-center align-items-center shadow-lg' style={{ background: '#2D4373', height: '400px' }}>
+                            <h4 className='d-flex justify-content-center align-items-center my-3'>Oops ! No Pets Found In The
+                                System, Which Suits With Your Opinion 🤔
+                            </h4>
+                        </div>
                     )}
-                    <div className='d-flex justify-content-center align-items-center gap-2'>
-                        <button type='button' className='btn btn-info text-white'
+                    <div className='d-flex justify-content-center align-items-center mt-3'>
+                        <button type='button' className='btn btn-danger text-white hover-effect'
                                 onClick={navigateToHomePage}>Back To Homepage
                         </button>
                     </div>

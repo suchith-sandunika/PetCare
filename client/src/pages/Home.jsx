@@ -117,32 +117,33 @@ const Home = () => {
     return (
         <div className='container-fluid h-100 w-100 mt-2 mb-2'>
             <ToastContainer/>
-            <div className='card w-full h-full'>
-                <div className='card-header align-items-center fw-bold border-0 bg-white'>
-                    <div className='card-title'>
-                        <h3 className='fw-bold d-flex justify-content-center align-items-center'>
-                            <img src={logo2} alt={logo2} className='pet-logo-size ms-2'/>
-                            PetCare - The Online Pet Adaptation Center
-                            <img src={logo} alt={logo} className='pet-logo-size mt-1'/>
-                        </h3>
+            <div className='card w-full h-full' style={{ background: 'cornflowerblue' }}>
+                <div className='card-header align-items-center fw-bold border-0' style={{ background: '#3B5998' }}>
+                    <div className='card-title rounded-2 mt-1'>
+                        <h2 className='fw-bold d-flex justify-content-center align-items-center'>
+                            <img src={logo2} alt={logo2} className='pet-logo-size mt-3 mb-3'/>
+                            <span className='mr-2 ms-2 text-white font-monospace'>PetCare - The Online Pet Adaptation Center</span>
+                            <img src={logo} alt={logo} className='pet-logo-size ms-2 mt-3 mb-3'/>
+                        </h2>
                     </div>
                 </div>
                 <div className='card-body'>
-                    <h5 className='align-items-center text-center fw-bold mb-3'>
-                        <img src={dogImage2} alt={dogImage2} className='pet-logo-size ms-1'/>
-                        Explore to own your pet
-                        <img src={petImage} alt={petImage} className='pet-logo-size ms-1'/>
-                    </h5>
+                    <h3 className='align-items-center text-center fw-bold mb-3 rounded-2'>
+                        <img src={dogImage2} alt={dogImage2} className='pet-logo-size ms-1 mt-3 mb-3'/>
+                        <span className='mr-2 ms-2 text-white font-monospace'>--- Explore & Own Your Pet ---</span>
+                        <img src={petImage} alt={petImage} className='pet-logo-size ms-2 ms-1 mt-3 mb-3'/>
+                    </h3>
                     <div className="row mb-3">
                     <div className="col-12 d-flex justify-content-end">
                             <div className="d-flex align-items-end search-bar-size">
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className="form-control custom-input"
                                     placeholder="Enter the mood to search"
                                     onChange={handleSearchInput}
+                                    style={{ backgroundColor: '#B3CCFF', color: 'white' }}
                                 />
-                                <Search className="ms-2 mb-2"/>
+                                <Search className="ms-2 mb-2" style={{ color: 'white' }}/>
                             </div>
                         </div>
                     </div>
@@ -150,54 +151,54 @@ const Home = () => {
                         <div className='row justify-content-center gx-3 gy-4'>
                             {pets.map((pet, index) => (
                                 <div key={index} className='col-md-2'>
-                                    <div className='card flex-fill hover-effect cursor-pointer'>
+                                    <div className='card flex-fill hover-effect cursor-pointer shadow-lg' style={{ background: '#2D4373' }}>
                                         <div className='card-body d-flex flex-column'>
-                                            <h5 className='card-title text-center fw-bold'>{pet.name}</h5>
+                                            <h5 className='card-title text-center fw-bold text-white'>{pet.name}</h5>
                                             {pet.image ? (
                                                 <img src={`${apiUrl}/uploads/${pet.image}`} alt={pet.name}
-                                                     className='card-img-top mb-2 img-fluid img-class-style'/>
+                                                     className='card-img-top mb-2 img-fluid img-class-style rounded-bottom'/>
                                             ) : (
                                                 (
                                                     pet.species === 'Dog' ? (
                                                         <img src={dogImage} alt={pet.name}
-                                                             className='card-img-top mb-2 img-fluid'
-                                                             style={{height: '150px', objectFit: 'cover'}}/>
+                                                             className='card-img-top mb-2 img-fluid rounded-bottom'
+                                                             style={{ objectFit: 'cover'}}/>
                                                     ) : (
                                                         pet.species === 'Cat' ? (
                                                             <img src={catImage} alt={pet.name}
-                                                                 className='card-img-top mb-2 img-fluid'
-                                                                 style={{height: '150px', objectFit: 'cover'}}/>
+                                                                 className='card-img-top mb-2 img-fluid rounded-bottom'
+                                                                 style={{ objectFit: 'cover'}}/>
                                                         ) : (
                                                             <img src={otherAnimal} alt={pet.name}
-                                                                 className='card-img-top mb-2'
-                                                                 style={{height: '150px', objectFit: 'cover'}}/>
+                                                                 className='card-img-top mb-2 rounded-bottom'
+                                                                 style={{ objectFit: 'cover'}}/>
                                                         )
                                                     )
                                                 )
                                             )}
-                                            <p className='card-text text-center'>Species: {pet.species}</p>
-                                            <p className='card-text text-center'>Age: {pet.age} Years</p>
-                                            <p className='card-text text-center'>Personality: {pet.personality}</p>
+                                            <p className='card-text text-center text-white'>Species: {pet.species}</p>
+                                            <p className='card-text text-center text-white'>Age: {pet.age} Years</p>
+                                            <p className='card-text text-center text-center text-white'>Personality: {pet.personality}</p>
                                             <div
                                                 className='d-flex justify-content-center align-items-center mb-2 mood-container'>
-                                                <p className='card-text mb-0 mood-label'>Mood: </p>
+                                                <p className='card-text mb-0 mood-label text-white'>Mood: </p>
                                                 <p className={pet.mood === 'Happy' ? 'card-text bg-green ms-2' : pet.mood === 'Excited' ? 'card-text bg-orange ms-2' : 'card-text bg-red ms-2'}>
                                                     {pet.mood} {pet.mood === 'Happy' ? '😊' : pet.mood === 'Excited' ? '🙂' : '😢'}
                                                 </p>
                                             </div>
                                             <div className='mt-auto custom-button-group'>
                                                 {pet.adopted || petAdopted ? (
-                                                    <button type='button' className='btn btn-secondary text-white'
+                                                    <button type='button' className='btn btn-secondary text-white hover-effect' style={{ cursor: 'none' }}
                                                             disabled>
                                                         Adopted
                                                     </button>
                                                 ) : (
-                                                    <button type='button' className='btn btn-success text-white'
+                                                    <button type='button' className='btn btn-success text-white hover-effect'
                                                             onClick={() => adoptThisPet(pet._id)}>
                                                         Adopt {pet.name}
                                                     </button>
                                                 )}
-                                                <button type='button' className='btn btn-info text-white'
+                                                <button type='button' className='btn btn-info text-white hover-effect'
                                                         onClick={() => viewPet(pet._id)}>
                                                     View Profile
                                                 </button>
@@ -208,17 +209,21 @@ const Home = () => {
                             ))}
                         </div>
                     ) : (
-                        <p className='d-flex justify-content-center align-items-center'>Oops ! No Pets Found in the
+                        <p className='d-flex justify-content-center align-items-center text-white'>Oops ! No Pets Found in the
                             System 🤔</p>
                     )}
                     <div className='d-flex flex-column flex-md-row justify-content-center align-items-center gap-2'>
-                        <button className='btn btn-primary d-flex justify-content-center align-items-center mt-3'
+                        <button className='btn btn-primary d-flex justify-content-center align-items-center mt-3 hover-effect' style={{ fontSize: '18px' }}
                                 onClick={moveToAddPet}>
-                            Add a new Pet 🐶
+                            Add a new Pet
+                            <span style={{ fontSize: '22px' }}>🐶</span>
                         </button>
-                        <button className='btn btn-success d-flex justify-content-center align-items-center mt-3'
-                                onClick={moveToIdentifyPet}>
-                            Identify the Pet Which Suits You 🐱
+                        <button
+                            className='btn btn-success d-flex justify-content-center align-items-center mt-3 hover-effect med-text'
+                            style={{fontSize: '18px'}}
+                            onClick={moveToIdentifyPet}>
+                            Identify the Pet Which Suits You
+                            <span style={{fontSize: '22px'}}>🐱</span>
                         </button>
                     </div>
                 </div>

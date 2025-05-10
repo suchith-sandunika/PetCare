@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import petImage from "../../public/other.jpg";
 import { filterPetsByPersonality } from "../services/api.js";
 import SuitablePets from "./SuitablePets.jsx";
+import '../styles/styles.css';
 
 const IdentifySuitablePet = () => {
     const [species, setSpecies] = useState('');
@@ -16,7 +17,7 @@ const IdentifySuitablePet = () => {
 
     const navigate = useNavigate();
 
-    const submitResponse = useCallback(async () => {
+    const submitResponse = async () => {
         // check whether the fields are empty or not ...
         if (!species || !personality) {
             setIsError(true);
@@ -36,7 +37,7 @@ const IdentifySuitablePet = () => {
             console.log(error);
             return;
         }
-    }, [isLoading, suitablePets]);
+    };
 
     const cancelOperation = useCallback(() => {
         // set a confirmation before leaving the page ...
@@ -60,7 +61,7 @@ const IdentifySuitablePet = () => {
         <div className='container-fluid mt-2 min-vh-100 d-flex justify-content-center align-items-center m-auto'>
             <ToastContainer/>
             { !isLoading && (
-                <div className='card w-50'>
+                <div className='card w-40' style={{ background: '#2D4373' }}>
                     <div className='card-header bg-white border-0'>
                         <div className='card-title'>
                             <h4 className='fw-bold d-flex justify-content-center align-items-center'>Choose A Pet For
@@ -73,35 +74,35 @@ const IdentifySuitablePet = () => {
                         <form>
                             <div
                                 className='card-img img-fluid d-flex justify-content-center align-items-center border-2'>
-                                <img src={petImage} alt={petImage} className='pet-img-size'/>
+                                <img src={petImage} alt={petImage} className='pet-img-size rounded-2'/>
                             </div>
                             <div className='form-group mt-2'>
-                                <label htmlFor='species' className='form-label'>Species <span
+                                <label htmlFor='species' className='form-label text-white'>Species <span
                                     className='bg-red'>*</span></label>
-                                <input type='text' id='species' name='species' placeholder='Enter Pet Species'
-                                       className='form-control' value={species}
+                                <input type='text' id='species' name='species' placeholder='Enter Pet Species' style={{ background: 'cornflowerblue' }}
+                                       className='form-control text-white' value={species}
                                        onChange={(e) => setSpecies(e.target.value)}/>
                                 {!species && isError && (
                                     <span className='bg-red'>Species is Required</span>
                                 )}
                             </div>
                             <div className='form-group mt-2'>
-                                <label htmlFor='personality' className='form-label'>Personality <span
+                                <label htmlFor='personality' className='form-label text-white'>Personality <span
                                     className='bg-red'>*</span></label>
-                                <input type='text' id='personality' name='personality'
+                                <input type='text' id='personality' name='personality' style={{ background: 'cornflowerblue' }}
                                        placeholder='Enter Pet Personality'
-                                       className='form-control' value={personality}
+                                       className='form-control text-white' value={personality}
                                        onChange={(e) => setPersonality(e.target.value)}/>
                                 {!personality && isError && (
                                     <span className='bg-red'>Personality is Required</span>
                                 )}
                             </div>
-                            <div className='mt-auto custom-button-group'>
-                                <button type='button' className='btn btn-primary text-white'
+                            <div className='mt-3 custom-button-group'>
+                                <button type='button' className='btn btn-primary text-white hover-effect'
                                         onClick={submitResponse}>
                                     Submit Your Response
                                 </button>
-                                <button type='button' className='btn btn-danger text-white'
+                                <button type='button' className='btn btn-danger text-white hover-effect'
                                         onClick={cancelOperation}>Cancel
                                 </button>
                             </div>

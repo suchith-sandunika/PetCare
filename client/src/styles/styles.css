@@ -3,6 +3,7 @@
 .pet-logo-size {
     height: 80px;
     width: 80px;
+    border-radius: 50%;
 }
 
 .w-15 {
@@ -85,6 +86,21 @@
     }
 }
 
+.custom-input::placeholder {
+    color: white;
+    opacity: 1; /* Optional: ensures full visibility */
+}
+
+.btn-custom {
+    background: linear-gradient(to right, #4e54c8, #8f94fb);
+    color: white;
+    border: none;
+}
+
+.btn-custom:hover {
+    background: linear-gradient(to right, #8f94fb, #4e54c8);
+}
+
 /*Add Pet Page CSS ...*/
 
 .pet-image-size {
@@ -102,8 +118,16 @@
     background-color: orangered;
 }
 
+.bg-blue {
+    background-color: #2D4373;
+}
+
 /*Identify Suitable Pet Page*/
 .pet-img-size {
     height: 250px;
     width: 250px;
+}
+
+.w-40 {
+    width: 40% !important;
 }

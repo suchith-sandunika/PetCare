@@ -91,7 +91,7 @@ const AddNewPet = () => {
     return (
         <div className='container-fluid mt-2 min-vh-100 d-flex justify-content-center align-items-center m-auto'>
             <ToastContainer/>
-            <div className='card w-40'>
+            <div className='card w-40' style={{ background: '#2D4373' }}>
                 <div className='card-header bg-white border-0'>
                     <div className='card-title'>
                         <h4 className='fw-bold d-flex justify-content-center align-items-center'>Add New Pet Data</h4>
@@ -101,55 +101,46 @@ const AddNewPet = () => {
                     <form>
                         <div className='card-img img-fluid d-flex justify-content-center align-items-center border-2'>
                             { image ? (
-                                <img src={imagePath} alt={image} className='pet-image-size'/>
+                                <img src={imagePath} alt={image} className='pet-image-size rounded-2'/>
                             ) : (
-                                <img src={petImage} alt={petImage} className='pet-image-size'/>
+                                <img src={petImage} alt={petImage} className='pet-image-size rounded-2'/>
                             )}
                         </div>
                         <div className='form-group mt-2'>
-                            <label htmlFor='image' className='form-label'>Image</label>
-                            <input type='file' name='image' className='form-control' accept='image/*'
+                            <label htmlFor='image' className='form-label text-white'>Image</label>
+                            <input type='file' name='image' className='form-control text-white' accept='image/*' style={{ background: 'cornflowerblue' }}
                                    onChange={handleImageChange}/>
                         </div>
                         <div className='form-group mt-2'>
-                            <label htmlFor='name' className='form-label'>Name <span className='bg-red'>*</span></label>
-                            <input type='text' id='name' name='name' placeholder='Enter Pet Name'
-                                   className='form-control' value={name} onChange={(e) => setName(e.target.value)}/>
+                            <label htmlFor='name' className='form-label text-white'>Name <span className='bg-red'>*</span></label>
+                            <input type='text' id='name' name='name' placeholder='Enter Pet Name' style={{ background: 'cornflowerblue' }}
+                                   className='form-control text-white' value={name} onChange={(e) => setName(e.target.value)}/>
                             {!name && isError && (
                                 <span className='bg-red'>Name is Required</span>
                             ) }
                         </div>
                         <div className='form-group mt-2'>
-                            <label htmlFor='species' className='form-label'>Species <span className='bg-red'>*</span></label>
-                            <input type='text' id='species' name='species' placeholder='Enter Pet Species'
-                                   className='form-control' value={species}
-                                   onChange={(e) => setSpecies(e.target.value)}/>
-                            {!species && isError && (
-                                <span className='bg-red'>Species is Required</span>
-                            ) }
-                        </div>
-                        <div className='form-group mt-2'>
-                            <label htmlFor='age' className='form-label'>Age (in years) <span className='bg-red'>*</span></label>
-                            <input type='number' id='age' name='age' placeholder='Enter Pet Age'
-                                   className='form-control' value={age} onChange={(e) => setAge(e.target.value)}/>
+                            <label htmlFor='species' className='form-label text-white'>Species <span className='bg-red'>*</span></label>
+                            <input type='text' id='species' name='species' placeholder='Enter Pet Species' style={{ background: 'cornflowerblue' }}
+                                   className='form-control text-white' value={species} onChange={(e) => setAge(e.target.value)}/>
                             {!age && isError && (
                                 <span className='bg-red'>Age is Required</span>
                             ) }
                         </div>
                         <div className='form-group mt-2'>
-                            <label htmlFor='personality' className='form-label'>Personality <span className='bg-red'>*</span></label>
-                            <input type='text' id='personality' name='personality' placeholder='Enter Pet Personality'
-                                   className='form-control' value={personality}
+                            <label htmlFor='personality' className='form-label text-white'>Personality <span className='bg-red'>*</span></label>
+                            <input type='text' id='personality' name='personality' placeholder='Enter Pet Personality' style={{ background: 'cornflowerblue' }}
+                                   className='form-control text-white' value={personality}
                                    onChange={(e) => setPersonality(e.target.value)}/>
                             {!personality && isError && (
                                 <span className='bg-red'>Personality is Required</span>
                             ) }
                         </div>
-                        <div className='mt-auto custom-button-group'>
-                            <button type='button' className='btn btn-info text-white'
+                        <div className='mt-3 custom-button-group'>
+                            <button type='button' className='btn btn-success text-white hover-effect'
                                     onClick={addPet}>Add the Pet
                             </button>
-                            <button type='button' className='btn btn-danger text-white'
+                            <button type='button' className='btn btn-danger text-white hover-effect'
                                     onClick={cancelOperation}>Cancel
                             </button>
                         </div>
