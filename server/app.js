@@ -17,6 +17,6 @@ app.use(bodyParser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Declare routes ...
-app.use('/pets', petRoutes);
+app.use('/api/v1/pets', petRoutes);
 
 module.exports = app;

@@ -6,6 +6,7 @@ import petImage from "../../public/other.jpg";
 import { filterPetsByPersonality } from "../services/api.js";
 import SuitablePets from "./SuitablePets.jsx";
 import '../styles/styles.css';
+import Button from "../components/Button.jsx";
 
 const IdentifySuitablePet = () => {
     const [species, setSpecies] = useState('');
@@ -98,13 +99,21 @@ const IdentifySuitablePet = () => {
                                 )}
                             </div>
                             <div className='mt-3 custom-button-group'>
-                                <button type='button' className='btn btn-primary text-white hover-effect'
-                                        onClick={submitResponse}>
-                                    Submit Your Response
-                                </button>
-                                <button type='button' className='btn btn-danger text-white hover-effect'
-                                        onClick={cancelOperation}>Cancel
-                                </button>
+                                {/*<button type='button' className='btn btn-primary text-white hover-effect'*/}
+                                {/*        onClick={submitResponse}>*/}
+                                {/*    Submit Your Response*/}
+                                {/*</button>*/}
+                                <Button classList={'btn btn-primary text-white hover-effect'}
+                                        text={'Submit Your Response'}
+                                        onClick={submitResponse}
+                                />
+                                {/*<button type='button' className='btn btn-danger text-white hover-effect'*/}
+                                {/*        onClick={cancelOperation}>Cancel*/}
+                                {/*</button>*/}
+                                <Button classList={'btn btn-danger text-white hover-effect'}
+                                        text={'Cancel'}
+                                        onClick={cancelOperation}
+                                />
                             </div>
                         </form>
                     </div>
